@@ -26,6 +26,8 @@ body {
 #sa, #sc, #se { background: #ffebee; }
 #sb, #sd { background: #ffcdd2; }
 
+/*position the funnel chart*/
+#funnel { padding-left: 100px; padding-top: 100px; }
 /*from the webapp boilerplate*/
 .hero-unit {
   margin: 50px auto 0 auto;

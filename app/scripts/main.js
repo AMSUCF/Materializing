@@ -3,6 +3,13 @@ console.log('\'Allo \'Allo!');
 $(document).ready(function() {
   //settings for fullpage.js: anchors are for the sections on the menu, responsiveWidth is breakpoint
     var sections = ['sa','sb','sc','sd','se'];
+    $('.tlthead').textillate({
+      minDisplayTime: 1000,
+      in: { effect: 'flipInX'},
+      out :{ delay: 3, effect: 'lightSpeedOut'},
+      loop: true
+    });
+    $('.tlt').textillate({ in: { effect: 'rollIn' } });
     $('#fullpage').fullpage({
         menu: '#nav',
        	anchors: ['a', 'b', 'c', 'd', 'e'],
@@ -14,6 +21,12 @@ $(document).ready(function() {
         onLeave: function(index, nextIndex, direction){
           if (nextIndex == 3) {
             lineChart();
+          }
+          if (nextIndex == 2) {
+            funnelChart();
+          }
+          if (nextIndex == 4) {
+            $('.tlt').textillate('in');
           }
         }
       });
@@ -83,4 +96,32 @@ function lineChart() {
 
   });
 
+}
+
+function funnelChart() {
+  var data = [
+['D3', 500, '#008080', '#080800'],
+['Bootstrap', 250, '#702963', '#FFFFFF'],
+['Materialize', 200, '#FFFF00', '#6f34fd'],
+['jQuery', 100, '#00cccc', '#080800'],
+// Background ---^ ^--- Label
+];
+  var options = {
+   block: {
+     dynamicHeight: true,
+     highlight: true
+   },
+   chart: {
+     width: $(window).width() -200,
+     height: $(window).height() -200,
+     animate: 1000
+   },
+   label: {
+    fontFamily: 'Arial',
+    fontSize: '20px'
+  }
+  };
+  d3.select('#funnel').selectAll('*').remove();
+  var chart = new D3Funnel('#funnel');
+  chart.draw(data, options);
 }
